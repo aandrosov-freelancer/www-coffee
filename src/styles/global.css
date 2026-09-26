@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --color-coffee-primary: #603809;
+  --color-coffee-dark: #442808;
+  --color-coffee-darker: #1e1e1e;
+  --color-coffee-accent: #f9c06a;
+  --color-coffee-accent-hover: #e5a950;
+  --color-coffee-cream: #fff9f1;
+  --color-coffee-cream-hover: #ffeed8;
+  --color-coffee-muted: #707070;
+
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-brand: "Clicker Script", cursive;
+  --font-script: "Great Vibes", "Marck Script", cursive;
+
+  --shadow-btn: 0px 6px 12px 0px rgba(249, 192, 106, 0.22);
+  --shadow-card: 0px 10px 25px -5px rgba(96, 56, 9, 0.08);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-serif);
+    color: var(--color-coffee-muted);
+    background-color: #fffefc;
+  }
+
+  body {
+    overflow-x: hidden;
+    margin: 0;
+  }
+}

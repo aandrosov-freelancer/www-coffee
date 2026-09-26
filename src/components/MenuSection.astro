@@ -1,0 +1,85 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+interface DrinkItem {
+	name: string;
+	composition: string;
+	price: string;
+	image: string;
+	alt: string;
+}
+
+const drinks: DrinkItem[] = [
+	{
+		name: 'Капучино',
+		composition: 'Кофе 50% | Молоко 50%',
+		price: '390 ₽',
+		image: '/images/cappuccino.png',
+		alt: 'Чашка классического капучино с латте-артом в виде сердца',
+	},
+	{
+		name: 'Чай Латте',
+		composition: 'Пряный чай 50% | Молоко 50%',
+		price: '420 ₽',
+		image: '/images/chai-latte.png',
+		alt: 'Ароматный пряный чай латте с нежной молочной пенкой',
+	},
+	{
+		name: 'Макиато',
+		composition: 'Кофе 70% | Молоко 30%',
+		price: '380 ₽',
+		image: '/images/macchiato.png',
+		alt: 'Карамельный макиато с воздушной шапкой молочной пены',
+	},
+	{
+		name: 'Эспрессо',
+		composition: 'Арабика 100% | Двойной шот',
+		price: '290 ₽',
+		image: '/images/espresso.png',
+		alt: 'Крепкий эспрессо с плотной золотистой крема',
+	},
+];
+---
+
+<section id="menu" class="relative py-14 lg:py-20">
+	<div class="max-w-[1180px] mx-auto px-5 sm:px-8">
+		<SectionHeading
+			title="Насладитесь новым вкусом кофейного стиля"
+			subtitle="Исследуйте все грани кофейных вкусов вместе с нами. Всегда найдётся новая чашка, которую стоит попробовать."
+		/>
+
+		<div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-12">
+			{
+				drinks.map((drink) => (
+					<article class="group relative flex flex-col bg-coffee-cream border border-coffee-accent/45 pb-9 transition-transform duration-300 hover:-translate-y-1 hover:shadow-card">
+						<div class="w-full h-[222px] overflow-hidden bg-coffee-dark/10">
+							<img
+								src={drink.image}
+								alt={drink.alt}
+								width="280"
+								height="222"
+								loading="lazy"
+								class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+							/>
+						</div>
+
+						<div class="pt-4 px-4 flex flex-col items-center text-center gap-1.5">
+							<h3 class="text-[22px] font-bold text-coffee-primary leading-snug">{drink.name}</h3>
+							<p class="text-[16px] font-normal text-coffee-darker">{drink.composition}</p>
+							<p class="text-[18px] font-bold text-coffee-primary mt-0.5">{drink.price}</p>
+						</div>
+
+						<button
+							type="button"
+							data-order-item={drink.name}
+							data-order-price={drink.price}
+							class="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap bg-coffee-accent hover:bg-coffee-accent-hover text-coffee-darker text-[16px] font-bold px-7 py-3 rounded-[24px] shadow-btn transition-all cursor-pointer active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coffee-primary"
+						>
+							Заказать сейчас
+						</button>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>

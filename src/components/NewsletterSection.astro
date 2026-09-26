@@ -1,0 +1,88 @@
+---
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section
+	id="newsletter"
+	class="relative w-full py-20 lg:py-24 bg-coffee-primary bg-cover bg-center bg-no-repeat overflow-visible"
+	style="background-image: url('/images/promo-bg.png');"
+>
+	<!-- Warm Brown Tint Overlay -->
+	<div class="absolute inset-0 bg-coffee-primary/80 pointer-events-none" aria-hidden="true"></div>
+
+	<div class="relative z-10 max-w-[980px] mx-auto px-5 sm:px-8 flex flex-col items-center text-center">
+		<SectionHeading
+			title="Подпишитесь на свежие новости"
+			subtitle="Не пропускайте наши сезонные новинки, полезные советы бариста и специальные предложения"
+			light={true}
+		/>
+
+		<form
+			id="newsletter-form"
+			class="mt-8 w-full max-w-[642px] flex flex-col sm:flex-row items-stretch rounded-[4px] overflow-hidden shadow-lg border border-coffee-accent/45 bg-coffee-cream"
+		>
+			<label for="newsletter-email" class="sr-only">Ваш адрес электронной почты</label>
+			<input
+				id="newsletter-email"
+				name="email"
+				type="email"
+				required
+				placeholder="Введите ваш e-mail"
+				class="flex-1 px-6 py-4 text-[18px] sm:text-[20px] text-coffee-darker bg-coffee-cream placeholder:text-black/35 focus:outline-none"
+			/>
+			<button
+				type="submit"
+				class="bg-coffee-accent hover:bg-coffee-accent-hover text-coffee-primary text-[18px] sm:text-[22px] font-bold px-8 py-4 transition-colors cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-coffee-primary"
+			>
+				Подписаться
+			</button>
+		</form>
+
+		<p
+			id="newsletter-status"
+			role="status"
+			aria-live="polite"
+			class="hidden mt-4 text-[16px] text-coffee-cream bg-coffee-dark/90 border border-coffee-accent/50 px-5 py-2.5 rounded-full"
+		>
+			Спасибо за подписку! В демонстрационном режиме письма не отправляются.
+		</p>
+	</div>
+
+	<!-- Left Splashing Coffee Cup Overlapping Bottom -->
+	<img
+		src="/images/splash-cup.png"
+		alt=""
+		aria-hidden="true"
+		loading="lazy"
+		width="280"
+		height="358"
+		class="pointer-events-none select-none absolute -bottom-16 lg:-bottom-28 left-0 w-[130px] sm:w-[200px] lg:w-[280px] h-auto z-20 hidden sm:block"
+	/>
+
+	<!-- Right Splashing Coffee Cup Overlapping Bottom (Mirrored) -->
+	<img
+		src="/images/splash-cup.png"
+		alt=""
+		aria-hidden="true"
+		loading="lazy"
+		width="280"
+		height="358"
+		class="pointer-events-none select-none absolute -bottom-16 lg:-bottom-28 right-0 w-[130px] sm:w-[200px] lg:w-[280px] h-auto z-20 -scale-x-100 hidden sm:block"
+	/>
+</section>
+
+<script>
+	const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
+	const statusMsg = document.getElementById('newsletter-status');
+
+	form?.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const formData = new FormData(form);
+		const email = String(formData.get('email') || '').trim();
+		if (!email || !statusMsg) return;
+
+		statusMsg.textContent = `Спасибо! Адрес ${email} добавлен в демо-список рассылки.`;
+		statusMsg.classList.remove('hidden');
+		form.reset();
+	});
+</script>

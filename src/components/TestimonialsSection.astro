@@ -1,0 +1,224 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+interface Testimonial {
+	quote: string;
+	author: string;
+	role: string;
+	avatar: string;
+}
+
+const testimonials: Testimonial[] = [
+	{
+		quote:
+			'В этой кофейне продуман каждый глоток! Аромат свежесмолотого зерна встречает прямо с порога, а уютные столики и мягкий свет идеально подходят как для утренней планерки, так и для спокойного отдыха. Их капучино на фермерском молоке — с шелковистой пенкой и долгим шоколадным послевкусием. Бариста всегда приветливы и помнят любимый заказ, превращая каждое утро в маленький праздник!',
+		author: 'Алексей Томашевский',
+		role: 'Руководитель проектов',
+		avatar: '/images/avatar-1.png',
+	},
+	{
+		quote:
+			'Моё любимое место в городе для вдохновения и встреч с друзьями! Пряный чай-латте и авторский макиато здесь готовят просто безупречно. Очень радует внимание к деталям: от идеальной температуры молока до свежайшей утренней выпечки. Настоящий оазис тепла, уюта и благородного вкуса в самом центре мегаполиса!',
+		author: 'Екатерина Волкова',
+		role: 'Арт-директор дизайн-студии',
+		avatar: '/images/avatar-1.png',
+	},
+	{
+		quote:
+			'Долго искал кофейню с правильной обжаркой под эспрессо и альтернативу — и нашёл её в Bean Scene. Зерно раскрывается чисто и объёмно, без лишней горечи, с благородными орехово-карамельными нотами. Отдельный плюс за быструю подачу по утрам и душевную атмосферу, ради которой хочется возвращаться снова и снова.',
+		author: 'Дмитрий Соколов',
+		role: 'Ведущий инженер-разработчик',
+		avatar: '/images/avatar-1.png',
+	},
+];
+---
+
+<section id="testimonials" class="relative py-20 lg:py-28 overflow-hidden">
+	<!-- Top-right Decorative Coffee Blast -->
+	<img
+		src="/images/coffee-blast-right.png"
+		alt=""
+		aria-hidden="true"
+		loading="lazy"
+		width="498"
+		height="272"
+		class="pointer-events-none select-none absolute top-6 right-0 w-[240px] sm:w-[360px] lg:w-[498px] h-auto z-0 opacity-95"
+	/>
+
+	<!-- Bottom-left Decorative Coffee Blast -->
+	<img
+		src="/images/coffee-blast-left.png"
+		alt=""
+		aria-hidden="true"
+		loading="lazy"
+		width="498"
+		height="272"
+		class="pointer-events-none select-none absolute bottom-4 left-0 w-[240px] sm:w-[360px] lg:w-[498px] h-auto z-0 opacity-95"
+	/>
+
+	<div class="relative z-10 max-w-[1180px] mx-auto px-5 sm:px-8 pb-14">
+		<SectionHeading
+			title="Отзывы о нашем кофейном совершенстве"
+			subtitle="Наши гости делятся самыми тёплыми впечатлениями о нас"
+		/>
+
+		<!-- Testimonial Card Wrapper -->
+		<div
+			class="relative max-w-[980px] mx-auto mt-10"
+			role="region"
+			aria-roledescription="carousel"
+			aria-label="Отзывы гостей кофейни"
+		>
+			<div
+				class="relative bg-coffee-cream border border-coffee-accent/45 px-7 sm:px-16 md:px-24 pt-12 sm:pt-14 pb-24 text-center"
+			>
+				<!-- Decorative Quote Icon -->
+				<div class="flex justify-start mb-2 sm:-ml-6">
+					<img
+						src="/images/quote.svg"
+						alt=""
+						aria-hidden="true"
+						width="82"
+						height="60"
+						class="w-[56px] sm:w-[82px] h-auto select-none"
+					/>
+				</div>
+
+				<!-- Slides -->
+				<div id="testimonial-slides" aria-live="polite">
+					{
+						testimonials.map((item, idx) => (
+							<div
+								class:list={[
+									'testimonial-slide transition-opacity duration-300',
+									idx === 0 ? 'block opacity-100' : 'hidden opacity-0',
+								]}
+								data-slide-index={idx}
+							>
+								<blockquote class="text-[16px] sm:text-[18px] text-coffee-muted font-semibold leading-[1.95] max-w-[780px] mx-auto mb-7">
+									{item.quote}
+								</blockquote>
+								<p class="text-[26px] sm:text-[32px] font-bold text-coffee-primary leading-tight">
+									{item.author}
+								</p>
+								<p class="text-[18px] sm:text-[20px] text-coffee-muted mt-1">{item.role}</p>
+							</div>
+						))
+					}
+				</div>
+
+				<!-- Overlapping Author Avatar at Bottom Center -->
+				<div class="absolute -bottom-14 left-1/2 -translate-x-1/2 flex flex-col items-center">
+					<div class="w-[112px] h-[112px] rounded-[16px] overflow-hidden shadow-lg border-2 border-coffee-accent bg-coffee-dark/10">
+						<img
+							id="testimonial-avatar"
+							src={testimonials[0].avatar}
+							alt="Фотография автора отзыва"
+							width="112"
+							height="112"
+							loading="lazy"
+							class="w-full h-full object-cover"
+						/>
+					</div>
+				</div>
+			</div>
+
+			<!-- Left Arrow Button -->
+			<button
+				type="button"
+				id="testimonial-prev"
+				aria-label="Предыдущий отзыв"
+				class="absolute top-1/2 -translate-y-1/2 -left-3 sm:-left-7 md:-left-10 w-[52px] h-[52px] sm:w-[72px] sm:h-[72px] md:w-[82px] md:h-[82px] rounded-[16px] bg-coffee-accent hover:bg-coffee-accent-hover text-coffee-primary shadow-btn flex items-center justify-center transition-all cursor-pointer active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coffee-primary z-20"
+			>
+				<svg
+					class="w-6 h-6"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.2"
+					viewBox="0 0 24 24"
+					aria-hidden="true"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"></path>
+				</svg>
+			</button>
+
+			<!-- Right Arrow Button -->
+			<button
+				type="button"
+				id="testimonial-next"
+				aria-label="Следующий отзыв"
+				class="absolute top-1/2 -translate-y-1/2 -right-3 sm:-right-7 md:-right-10 w-[52px] h-[52px] sm:w-[72px] sm:h-[72px] md:w-[82px] md:h-[82px] rounded-[16px] bg-coffee-accent hover:bg-coffee-accent-hover text-coffee-primary shadow-btn flex items-center justify-center transition-all cursor-pointer active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coffee-primary z-20"
+			>
+				<svg
+					class="w-6 h-6"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.2"
+					viewBox="0 0 24 24"
+					aria-hidden="true"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"></path>
+				</svg>
+			</button>
+		</div>
+
+		<!-- Slide Indicators -->
+		<div class="mt-20 flex items-center justify-center gap-2.5" role="tablist" aria-label="Выбор отзыва">
+			{
+				testimonials.map((item, idx) => (
+					<button
+						type="button"
+						role="tab"
+						aria-selected={idx === 0 ? 'true' : 'false'}
+						aria-label={`Отзыв ${idx + 1}: ${item.author}`}
+						data-slide-dot={idx}
+						class:list={[
+							'h-2.5 rounded-full transition-all cursor-pointer',
+							idx === 0 ? 'w-8 bg-coffee-primary' : 'w-2.5 bg-coffee-accent/60 hover:bg-coffee-accent',
+						]}
+					/>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const slides = Array.from(document.querySelectorAll<HTMLElement>('.testimonial-slide'));
+	const dots = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-slide-dot]'));
+	const prevBtn = document.getElementById('testimonial-prev');
+	const nextBtn = document.getElementById('testimonial-next');
+	let currentIndex = 0;
+
+	function showSlide(index: number) {
+		if (!slides.length) return;
+		currentIndex = (index + slides.length) % slides.length;
+
+		slides.forEach((slide, idx) => {
+			const active = idx === currentIndex;
+			slide.classList.toggle('hidden', !active);
+			slide.classList.toggle('block', active);
+			slide.classList.toggle('opacity-100', active);
+			slide.classList.toggle('opacity-0', !active);
+		});
+
+		dots.forEach((dot, idx) => {
+			const active = idx === currentIndex;
+			dot.setAttribute('aria-selected', String(active));
+			dot.classList.toggle('w-8', active);
+			dot.classList.toggle('bg-coffee-primary', active);
+			dot.classList.toggle('w-2.5', !active);
+			dot.classList.toggle('bg-coffee-accent/60', !active);
+		});
+	}
+
+	prevBtn?.addEventListener('click', () => showSlide(currentIndex - 1));
+	nextBtn?.addEventListener('click', () => showSlide(currentIndex + 1));
+
+	dots.forEach((dot) => {
+		dot.addEventListener('click', () => {
+			const idx = Number(dot.getAttribute('data-slide-dot') || 0);
+			showSlide(idx);
+		});
+	});
+</script>

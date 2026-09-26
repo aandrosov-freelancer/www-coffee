@@ -1,0 +1,101 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+interface FeatureItem {
+	title: string;
+	description: string;
+	icon: string;
+	highlighted?: boolean;
+}
+
+const features: FeatureItem[] = [
+	{
+		title: 'Отборные зёрна',
+		description: 'Зёрна ручного сбора, дарящие глубокий и насыщенный вкус',
+		icon: '/images/icon-beans.png',
+		highlighted: true,
+	},
+	{
+		title: 'Высокое качество',
+		description: 'Бережная обжарка и строгий контроль каждой партии',
+		icon: '/images/icon-badge.png',
+	},
+	{
+		title: 'Неповторимый вкус',
+		description: 'Кофе, который удивит даже искушённых ценителей',
+		icon: '/images/icon-cup.png',
+	},
+	{
+		title: 'Доступная цена',
+		description: 'Премиальный спешелти кофе по честной и приятной цене',
+		icon: '/images/icon-price.png',
+	},
+];
+---
+
+<section id="features" class="relative py-16 lg:py-24 overflow-hidden">
+	<!-- Decorative Coffee Blast Right -->
+	<img
+		src="/images/coffee-blast-right.png"
+		alt=""
+		aria-hidden="true"
+		loading="lazy"
+		width="498"
+		height="272"
+		class="pointer-events-none select-none absolute -top-6 right-0 w-[250px] sm:w-[360px] lg:w-[478px] h-auto z-0 opacity-95"
+	/>
+
+	<div class="relative z-10 max-w-[1180px] mx-auto px-5 sm:px-8">
+		<SectionHeading
+			title="Чем мы отличаемся?"
+			subtitle="Мы не просто готовим ваш кофе — мы создаём ваш день!"
+		/>
+
+		<div class="mt-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+			{
+				features.map((item) => (
+					<article
+						class:list={[
+							'flex flex-col items-center text-center justify-center px-6 py-9 border border-coffee-accent/45 transition-all duration-300 hover:-translate-y-1 hover:shadow-card',
+							item.highlighted
+								? 'bg-coffee-cream-hover hover:bg-coffee-cream-hover'
+								: 'bg-coffee-cream hover:bg-coffee-cream-hover',
+						]}
+					>
+						<img
+							src={item.icon}
+							alt=""
+							aria-hidden="true"
+							width="88"
+							height="88"
+							loading="lazy"
+							class="w-[88px] h-[88px] object-contain mb-6"
+						/>
+						<h3 class="text-[24px] xl:text-[26px] font-bold text-coffee-primary mb-2 leading-snug">
+							{item.title}
+						</h3>
+						<p class="text-[17px] xl:text-[19px] text-coffee-muted leading-[1.45]">
+							{item.description}
+						</p>
+					</article>
+				))
+			}
+		</div>
+
+		<div class="mt-9 flex flex-col items-center text-center">
+			<p class="text-[18px] sm:text-[20px] text-coffee-muted leading-relaxed">
+				Великие идеи начинаются с отличного кофе — давайте воплотим их вместе
+			</p>
+			<h3 class="text-[26px] sm:text-[30px] font-bold text-coffee-primary mt-1 mb-6">
+				Начните уже сегодня.
+			</h3>
+			<button
+				type="button"
+				data-modal-open="join"
+				class="bg-coffee-accent hover:bg-coffee-accent-hover text-coffee-darker text-[16px] font-bold px-9 py-3.5 rounded-[24px] shadow-btn transition-all cursor-pointer active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coffee-primary"
+			>
+				Присоединиться
+			</button>
+		</div>
+	</div>
+</section>

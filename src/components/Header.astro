@@ -1,0 +1,164 @@
+---
+const navItems = [
+	{ label: 'Главная', href: '#hero' },
+	{ label: 'Меню', href: '#menu' },
+	{ label: 'О нас', href: '#discover' },
+	{ label: 'Контакты', href: '#footer' },
+];
+---
+
+<header class="absolute top-0 left-0 right-0 z-30">
+	<div class="max-w-[1180px] mx-auto px-5 sm:px-8 py-5 flex items-center justify-between">
+		<!-- Brand Logo -->
+		<a
+			href="#hero"
+			class="font-brand text-[35px] leading-none text-white hover:text-coffee-accent transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coffee-accent"
+			aria-label="Bean Scene — На главную"
+		>
+			Bean Scene
+		</a>
+
+		<!-- Desktop Navigation -->
+		<nav aria-label="Основная навигация" class="hidden md:block">
+			<ul class="flex items-center gap-10 lg:gap-14">
+				{
+					navItems.map((item) => (
+						<li>
+							<a
+								href={item.href}
+								class="text-[14px] font-medium text-white hover:text-coffee-accent transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coffee-accent"
+							>
+								{item.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+
+		<!-- Desktop Auth Buttons -->
+		<div class="hidden md:flex items-center gap-7">
+			<button
+				type="button"
+				data-modal-open="login"
+				class="text-[14px] font-medium text-white underline underline-offset-4 hover:text-coffee-accent transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-coffee-accent"
+			>
+				Войти
+			</button>
+			<button
+				type="button"
+				data-modal-open="signup"
+				class="bg-coffee-accent hover:bg-coffee-accent-hover text-coffee-darker text-[14px] font-bold px-6 py-3 rounded-[24px] shadow-btn transition-all cursor-pointer active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+			>
+				Регистрация
+			</button>
+		</div>
+
+		<!-- Mobile Menu Toggle -->
+		<button
+			type="button"
+			id="mobile-menu-toggle"
+			aria-expanded="false"
+			aria-controls="mobile-menu-panel"
+			aria-label="Открыть меню навигации"
+			class="md:hidden inline-flex items-center justify-center p-2.5 rounded-lg text-white hover:text-coffee-accent hover:bg-white/10 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-coffee-accent"
+		>
+			<svg
+				id="icon-menu-open"
+				class="w-7 h-7"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				viewBox="0 0 24 24"
+				aria-hidden="true"
+			>
+				<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+			</svg>
+			<svg
+				id="icon-menu-close"
+				class="w-7 h-7 hidden"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				viewBox="0 0 24 24"
+				aria-hidden="true"
+			>
+				<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+			</svg>
+		</button>
+	</div>
+
+	<!-- Mobile Menu Panel -->
+	<div
+		id="mobile-menu-panel"
+		class="hidden md:hidden bg-coffee-darker/95 backdrop-blur-md border-b border-coffee-accent/30 px-6 pt-3 pb-6"
+	>
+		<nav aria-label="Мобильная навигация">
+			<ul class="flex flex-col gap-4">
+				{
+					navItems.map((item) => (
+						<li>
+							<a
+								href={item.href}
+								class="mobile-nav-link block py-1.5 text-[16px] font-medium text-white hover:text-coffee-accent transition-colors"
+							>
+								{item.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+			<div class="mt-5 pt-5 border-t border-white/15 flex items-center gap-4">
+				<button
+					type="button"
+					data-modal-open="login"
+					class="mobile-nav-link flex-1 py-2.5 text-[14px] font-medium text-white border border-white/30 rounded-full hover:border-coffee-accent hover:text-coffee-accent transition-colors cursor-pointer"
+				>
+					Войти
+				</button>
+				<button
+					type="button"
+					data-modal-open="signup"
+					class="mobile-nav-link flex-1 py-2.5 text-[14px] font-bold bg-coffee-accent hover:bg-coffee-accent-hover text-coffee-darker rounded-full shadow-btn transition-colors cursor-pointer"
+				>
+					Регистрация
+				</button>
+			</div>
+		</nav>
+	</div>
+</header>
+
+<script>
+	const toggleBtn = document.getElementById('mobile-menu-toggle');
+	const menuPanel = document.getElementById('mobile-menu-panel');
+	const iconOpen = document.getElementById('icon-menu-open');
+	const iconClose = document.getElementById('icon-menu-close');
+
+	function setMenuState(isOpen: boolean) {
+		if (!toggleBtn || !menuPanel || !iconOpen || !iconClose) return;
+		toggleBtn.setAttribute('aria-expanded', String(isOpen));
+		toggleBtn.setAttribute(
+			'aria-label',
+			isOpen ? 'Закрыть меню навигации' : 'Открыть меню навигации'
+		);
+		menuPanel.classList.toggle('hidden', !isOpen);
+		iconOpen.classList.toggle('hidden', isOpen);
+		iconClose.classList.toggle('hidden', !isOpen);
+	}
+
+	toggleBtn?.addEventListener('click', () => {
+		const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+		setMenuState(!expanded);
+	});
+
+	document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+		link.addEventListener('click', () => setMenuState(false));
+	});
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && toggleBtn?.getAttribute('aria-expanded') === 'true') {
+			setMenuState(false);
+			toggleBtn.focus();
+		}
+	});
+</script>
