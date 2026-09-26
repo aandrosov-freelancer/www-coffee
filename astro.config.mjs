@@ -7,6 +7,6 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 	},
-	site: 'https://coffee.antonandrosov.ru',
+	site: 'https://coffe.antonandrosov.ru',
 });
 
